@@ -1,0 +1,32 @@
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable-anydpi/ic_map.xml" value="0.1715" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable-anydpi/ic_message.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable-anydpi/ic_phone_call.xml" value="0.1715" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable-hdpi/bg_blue_corner_10.xml" value="0.2045" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable-hdpi/bg_white_corner_10_border_gray.xml" value="0.2045" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable/bg_blue_corner_16_top_left_top_right.xml" value="0.2045" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable/bg_gray_corner_10.xml" value="0.2045" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable/bg_indicator.xml" value="0.2645" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable/bg_white_corner_16.xml" value="0.2045" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/drawable/ic_favourite.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/layout/activity_landmark_detail.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/layout/activity_main.xml" value="0.2269021739130435" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/layout/custom_single_image.xml" value="0.20108695652173914" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/layout/item_landmark.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/layout/item_photo.xml" value="0.25833333333333336" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/layout/layout_addlandmarkdialog.xml" value="0.2453125" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/layout/layout_scrollable_add.xml" value="0.23505434782608695" />
+        <entry key="..\:/AndroidStudioProjects/TouristGuide/app/src/main/res/menu/favourite_menu.xml" value="0.25833333333333336" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
