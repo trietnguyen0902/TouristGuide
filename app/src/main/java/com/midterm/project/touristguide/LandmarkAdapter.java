@@ -17,11 +17,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class LandmarkAdapter extends RecyclerView.Adapter<LandmarkAdapter.LandMarkViewHolder> {
     private Context mContext;
     private List<Landmark> mListLandmark;
+    private List<Landmark> favoriteList = new ArrayList<>();
+    public void addToFavorite(Landmark landmark) {
+        landmark.setFavorite(true);
+        favoriteList.add(landmark);
+    }
+    public void removeFromFavorite(Landmark landmark) {
+        landmark.setFavorite(false);
+        favoriteList.remove(landmark);
+    }
+
+    public List<Landmark> getFavoriteList() {
+        return favoriteList;
+    }
+
+    // Implement sorting by rating
+    public void sortLandmarksAscending() {
+        Collections.sort(mListLandmark, (landmark1, landmark2) -> Integer.compare(landmark1.getRating(), landmark2.getRating()));
+        notifyDataSetChanged();
+    }
+    public void sortLandmarksDescending() {
+        Collections.sort(mListLandmark, (landmark1, landmark2) -> Integer.compare(landmark2.getRating(), landmark1.getRating()));
+        notifyDataSetChanged();
+    }
 
     public LandmarkAdapter(Context mContext) {
         this.mContext = mContext;
@@ -40,29 +64,27 @@ public class LandmarkAdapter extends RecyclerView.Adapter<LandmarkAdapter.LandMa
     @Override
     public void onBindViewHolder(@NonNull LandMarkViewHolder holder, int position) {
         Landmark landmark = mListLandmark.get(position);
-        if(landmark == null){
+        if (landmark == null) {
             return;
         }
-        holder.imgLandmark.setImageURI(landmark.getResourceImage()[0]);
+        holder.imgLandmark.setImageURI(landmark.getResourceImages()[0]);
         holder.name.setText(landmark.getName());
         holder.description.setText(landmark.getDescription());
-        holder.rating.setText("Rating:"+String.valueOf(landmark.getRating()) + "/5");
+        holder.rating.setText("Rating:" + String.valueOf(landmark.getRating()) + "/5");
 
         holder.layoutItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,LandmarkDetail.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("object_landmark",landmark);
-//                intent.putExtras(bundle);
-                ArrayList<Uri> arrayList = new ArrayList<>(Arrays.asList(landmark.getResourceImage()));
-                intent.putExtra("imagesUri", Arrays.toString(landmark.getResourceImage()));
-                intent.putParcelableArrayListExtra("imagesUri",arrayList);
-                intent.putExtra("detailName",landmark.getName());
-                intent.putExtra("detailDescription",landmark.getDescription());
-                intent.putExtra("detailPhone",landmark.getPhoneNumber());
-                intent.putExtra("detailLocation",landmark.getAddress());
-                intent.putExtra("detailWiki",landmark.getWikipage());
+                // Handle click to view landmark details
+                Intent intent = new Intent(mContext, LandmarkDetail.class);
+                ArrayList<Uri> arrayList = new ArrayList<>(Arrays.asList(landmark.getResourceImages()));
+                intent.putExtra("imagesUri", Arrays.toString(landmark.getResourceImages()));
+                intent.putParcelableArrayListExtra("imagesUri", arrayList);
+                intent.putExtra("detailName", landmark.getName());
+                intent.putExtra("detailDescription", landmark.getDescription());
+                intent.putExtra("detailPhone", landmark.getPhoneNumber());
+                intent.putExtra("detailLocation", landmark.getAddress());
+                intent.putExtra("detailWiki", landmark.getWikipage());
                 mContext.startActivity(intent);
             }
         });
@@ -70,8 +92,14 @@ public class LandmarkAdapter extends RecyclerView.Adapter<LandmarkAdapter.LandMa
         holder.layoutItem.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Toast.makeText(mContext.getApplicationContext(), "Hi",Toast.LENGTH_LONG).show();
-                return false;
+                if (!landmark.isFavorite()) {
+                    addToFavorite(landmark);
+                    Toast.makeText(mContext.getApplicationContext(), "Added to Favorites", Toast.LENGTH_LONG).show();
+                } else {
+                    removeFromFavorite(landmark);
+                    Toast.makeText(mContext.getApplicationContext(), "Removed from Favorites", Toast.LENGTH_LONG).show();
+                }
+                return true; // Consume the long-click event
             }
         });
     }
@@ -83,6 +111,7 @@ public class LandmarkAdapter extends RecyclerView.Adapter<LandmarkAdapter.LandMa
         }
         return 0;
     }
+
 
     public class LandMarkViewHolder extends RecyclerView.ViewHolder {
         private CardView layoutItem;

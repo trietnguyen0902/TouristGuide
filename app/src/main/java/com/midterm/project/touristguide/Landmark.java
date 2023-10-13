@@ -5,14 +5,16 @@ import android.net.Uri;
 import java.io.Serializable;
 
 public class Landmark implements Serializable {
-    private Uri[] resourceImage;
+    private String[] resourceImage;
+    private boolean isFavorite;
     private String name;
     private String description;
     private int rating;
     private String wikipage;
     private String phoneNumber;
     private String address;
-    public Landmark(Uri[] resourceImage, String name, String description, int rating, String wikipage, String phoneNumber, String address) {
+    public Landmark(String[] resourceImage, String name, String description, int rating,
+                    String wikipage, String phoneNumber, String address, boolean isFavorite) {
         this.resourceImage = resourceImage;
         this.name = name;
         this.description = description;
@@ -20,14 +22,21 @@ public class Landmark implements Serializable {
         this.wikipage = wikipage;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.isFavorite = isFavorite;
     }
 
-    public Uri[] getResourceImage() {
-        return resourceImage;
+    public Uri[] getResourceImages() {
+        Uri[] uris = new Uri[resourceImage.length];
+        for (int i = 0; i < resourceImage.length; i++) {
+            uris[i] = Uri.parse(resourceImage[i]);
+        }
+        return uris;
     }
-
-    public void setResourceImage(Uri[] resourceImage) {
-        this.resourceImage = resourceImage;
+    public void setResourceImages(Uri[] resourceImages) {
+        resourceImage = new String[resourceImages.length];
+        for (int i = 0; i < resourceImages.length; i++) {
+            resourceImage[i] = resourceImages[i].toString();
+        }
     }
 
     public String getName() {
@@ -76,5 +85,12 @@ public class Landmark implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

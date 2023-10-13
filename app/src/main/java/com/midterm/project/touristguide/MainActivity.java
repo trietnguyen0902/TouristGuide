@@ -46,9 +46,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private FloatingActionButton floatingActionButton;
     private List<Landmark> list;
     private RecyclerView rcvAddItem;
+    Button btnSortAscending; // Initialize this button
+    Button btnSortDescending; // Initialize this button
     ArrayList<Uri> uriArrayList = new ArrayList<>();
-    private static final int REAR_PERMISSION =101;
+    private static final int REAR_PERMISSION = 101;
     private int rating;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,40 +61,92 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mLandmarkAdapter = new LandmarkAdapter(this);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         rcvLandmark.setLayoutManager(gridLayoutManager);
 
         mLandmarkAdapter.setData(getListLandmark());
         rcvLandmark.setAdapter(mLandmarkAdapter);
 
+        // Initialize the buttons here
+        btnSortAscending = findViewById(R.id.btnSortAscending);
+        btnSortDescending = findViewById(R.id.btnSortDescending);
+
+        btnSortAscending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Sort landmark items in ascending order
+                mLandmarkAdapter.sortLandmarksAscending();
+            }
+        });
+
+        btnSortDescending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Sort landmark items in descending order
+                mLandmarkAdapter.sortLandmarksDescending();
+            }
+        });
     }
+
+
 
 
     public List<Landmark> getListLandmark() {
-        list = new ArrayList<>();
-        list.add(new Landmark(new Uri[]{getUriToDrawable(MainActivity.this,R.drawable.dinh_doc_lap_1),(getUriToDrawable(MainActivity.this,R.drawable.dinh_doc_lap_2)),(getUriToDrawable(MainActivity.this,R.drawable.dinh_doc_lap_3))},"Indedenpence Palace", "Vietnam Independence Palace: Iconic Saigon landmark, historic site where the Vietnam War ended, showcasing mid-century architecture and presidential history.",5,"https://en.wikipedia.org/wiki/Independence_Palace","02838223652","135 Đ. Nam Kỳ Khởi Nghĩa, Phường Bến Thành, Quận 1, Thành phố Hồ Chí Minh"));
-        list.add(new Landmark(new Uri[]{getUriToDrawable(MainActivity.this,R.drawable.cu_chi_1),(getUriToDrawable(MainActivity.this,R.drawable.cu_chi_2)),(getUriToDrawable(MainActivity.this,R.drawable.cu_chi_3))},"Cu Chi tunnels","The tunnels of Củ Chi are an immense network of connecting tunnels located in the Củ Chi District of Ho Chi Minh City, Vietnam, and are part of a much larger network of tunnels that underlie much of the country.",3,"https://en.wikipedia.org/wiki/C%E1%BB%A7_Chi_tunnels","02837948830","Phú Hiệp, Củ Chi, Ho Chi Minh City"));
-        list.add(new Landmark(new Uri[]{getUriToDrawable(MainActivity.this,R.drawable.benthanh_1),getUriToDrawable(MainActivity.this,R.drawable.benthanh_2)},"Bến Thành Market","Bến Thành Market (Vietnamese: Chợ Bến Thành) is located in the center of Hồ Chí Minh City, Vietnam in District 1. The market is one of the earliest surviving structures in Saigon and an important symbol of the city. Ben Thanh Market is a famous destination for many local and foreign tourists from all around the world",4,"https://en.wikipedia.org/wiki/B%E1%BA%BFn_Th%C3%A0nh_Market","0835210004","Lê Lợi, Phường Bến Thành, Quận 1, Thành phố Hồ Chí Minh\n"));
-        list.add(new Landmark(new Uri[]{getUriToDrawable(MainActivity.this,R.drawable.sg_post_office_1),getUriToDrawable(MainActivity.this,R.drawable.sg_post_office_2)},"Sai Gon Central Post Office","The building was constructed when Vietnam was part of French Indochina in the late 19th century. It counts with Gothic, Renaissance and French influences. It was constructed between 1886 and 1891 and is now a tourist attraction" ,5,"https://en.wikipedia.org/wiki/Saigon_Central_Post_Office","02839247247","02 Công xã Paris, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh 70000"));
-        list.add(new Landmark(new Uri[]{getUriToDrawable(MainActivity.this,R.drawable.sg_opera_house_1),getUriToDrawable(MainActivity.this,R.drawable.sg_opera_house_2),getUriToDrawable(MainActivity.this,R.drawable.sg_opera_house_3)},"Ho Chi Minh City Opera House","The Municipal Theatre of Ho Chi Minh City, also known as Saigon Opera House, is an opera house in Ho Chi Minh City, Vietnam. It is an example of French Colonial architecture in Vietnam. Designed by French architects as the Opéra de Saïgon, the building was completed in 1900." ,4,"https://en.wikipedia.org/wiki/Municipal_Theatre_of_Ho_Chi_Minh_City","02839247247","07 Công Trường Lam Sơn, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh 710212"));
+        List<Landmark> list = new ArrayList<>();
+        list.add(new Landmark(new String[]{
+                "android.resource://com.midterm.project.touristguide/drawable/dinh_doc_lap_1",
+                "android.resource://com.midterm.project.touristguide/drawable/dinh_doc_lap_2",
+                "android.resource://com.midterm.project.touristguide/drawable/dinh_doc_lap_3"
+        }, "Independence Palace", "Vietnam Independence Palace: Iconic Saigon landmark, historic site where the Vietnam War ended, showcasing mid-century architecture and presidential history.", 5, "https://en.wikipedia.org/wiki/Independence_Palace", "02838223652", "135 Đ. Nam Kỳ Khởi Nghĩa, Phường Bến Thành, Quận 1, Thành phố Hồ Chí Minh", false));
+        list.add(new Landmark(new String[]{
+                "android.resource://com.midterm.project.touristguide/drawable/cu_chi_1",
+                "android.resource://com.midterm.project.touristguide/drawable/cu_chi_2",
+                "android.resource://com.midterm.project.touristguide/drawable/cu_chi_3"
+        }, "Cu Chi tunnels", "The tunnels of Củ Chi are an immense network of connecting tunnels located in the Củ Chi District of Ho Chi Minh City, Vietnam, and are part of a much larger network of tunnels that underlie much of the country.", 3, "https://en.wikipedia.org/wiki/C%E1%BB%A7_Chi_tunnels", "02837948830", "Phú Hiệp, Củ Chi, Ho Chi Minh City", false));
+        list.add(new Landmark(new String[]{
+                "android.resource://com.midterm.project.touristguide/drawable/benthanh_1",
+                "android.resource://com.midterm.project.touristguide/drawable/benthanh_2"
+        }, "Bến Thành Market", "Bến Thành Market (Vietnamese: Chợ Bến Thành) is located in the center of Hồ Chí Minh City, Vietnam in District 1. The market is one of the earliest surviving structures in Saigon and an important symbol of the city. Ben Thanh Market is a famous destination for many local and foreign tourists from all around the world", 4, "https://en.wikipedia.org/wiki/B%E1%BA%BFn_Th%C3%A0nh_Market", "0835210004", "Lê Lợi, Phường Bến Thành, Quận 1, Thành phố Hồ Chí Minh\n", false));
+        list.add(new Landmark(new String[]{
+                "android.resource://com.midterm.project.touristguide/drawable/sg_post_office_1",
+                "android.resource://com.midterm.project.touristguide/drawable/sg_post_office_2"
+        }, "Sai Gon Central Post Office", "The building was constructed when Vietnam was part of French Indochina in the late 19th century. It counts with Gothic, Renaissance and French influences. It was constructed between 1886 and 1891 and is now a tourist attraction", 5, "https://en.wikipedia.org/wiki/Saigon_Central_Post_Office", "02839247247", "02 Công xã Paris, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh 70000", false));
+        list.add(new Landmark(new String[]{
+                "android.resource://com.midterm.project.touristguide/drawable/sg_opera_house_1",
+                "android.resource://com.midterm.project.touristguide/drawable/sg_opera_house_2",
+                "android.resource://com.midterm.project.touristguide/drawable/sg_opera_house_3"
+        }, "Ho Chi Minh City Opera House", "The Municipal Theatre of Ho Chi Minh City, also known as Saigon Opera House, is an opera house in Ho Chi Minh City, Vietnam. It is an example of French Colonial architecture in Vietnam. Designed by French architects as the Opéra de Saïgon, the building was completed in 1900.", 4, "https://en.wikipedia.org/wiki/Municipal_Theatre_of_Ho_Chi_Minh_City", "02839247247", "07 Công Trường Lam Sơn, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh 710212", false));
         return list;
+
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.favourite_menu,menu);
-        return true ;
+        inflater.inflate(R.menu.favourite_menu, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.favourtie){
-            Toast.makeText(this,"Favourite",Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.favourite) {
+            // Handle displaying the favorite list
+            showFavoriteList();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
+    private void showFavoriteList() {
+        List<Landmark> favoriteList = mLandmarkAdapter.getFavoriteList();
 
+        Intent intent = new Intent(this, FavoriteListActivity.class);
+        intent.putExtra("favoriteList", new ArrayList<>(favoriteList)); // Convert to ArrayList for Serializable
+        startActivity(intent);
+    }
 
     public final Uri getUriToDrawable(@NonNull Context context,
                                              @AnyRes int drawableId) {
